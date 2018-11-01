@@ -1,9 +1,6 @@
-package com.deligence.omdbmovierating
+package com.deligence.omdbmovierating.activities
 
-import android.app.Activity
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
@@ -20,6 +17,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.deligence.omdbmovierating.R
 import com.deligence.omdbmovierating.enums.EnumTypes
 import com.deligence.omdbmovierating.fragments.FragmentListItem
 import com.deligence.omdbmovierating.models.ModelHome
@@ -37,7 +35,7 @@ class ActivityHome : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.homeToolBar))
 
         handleDelayText = Handler()
-        runDelay = DelayRunnable(this@ActivityHome,"")
+        runDelay = DelayRunnable(this@ActivityHome, "")
         val homeViewModel = ViewModelProviders.of(this).get(VMActivityHome::class.java)
         liveDatamodelHome = homeViewModel!!.getMovies()
 
@@ -88,7 +86,7 @@ class ActivityHome : AppCompatActivity() {
             handleDelayText.removeCallbacks(runDelay)
 
             if(!TextUtils.isEmpty(text)){
-                runDelay = DelayRunnable(this@ActivityHome,text!!)
+                runDelay = DelayRunnable(this@ActivityHome, text!!)
                 handleDelayText.postDelayed(runDelay, 500)
             }
 

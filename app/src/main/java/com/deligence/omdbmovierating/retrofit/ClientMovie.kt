@@ -25,5 +25,5 @@ interface ClientMovie {
 
     @GET(ServerConstants.BASE_URL)
     fun getMovie(@Query(ServerConstants.APIKEY) apiKey: String,
-                 @Query(ServerConstants.ID_KEY) imdbId: String): Call<LiveData<DataMovie>>
+                 @Query(ServerConstants.ID_KEY) imdbId: String): Call<ResponseMovieDetail>
 }

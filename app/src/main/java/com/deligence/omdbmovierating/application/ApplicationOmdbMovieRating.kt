@@ -1,4 +1,4 @@
-package com.deligence.omdbmovierating
+package com.deligence.omdbmovierating.application
 
 import android.app.Application
 import android.content.Context

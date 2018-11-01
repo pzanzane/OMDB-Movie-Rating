@@ -1,7 +1,7 @@
 package com.deligence.omdbmovierating.utility
 
 import android.widget.Toast
-import com.deligence.omdbmovierating.ApplicationOmdbMovieRating
+import com.deligence.omdbmovierating.application.ApplicationOmdbMovieRating
 
 
 class ToastUtils {

@@ -3,9 +3,9 @@ package com.deligence.omdbmovierating.fragments
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -16,17 +16,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.deligence.omdbmovierating.R
-import com.deligence.omdbmovierating.SpacesItemDecoration
+import com.deligence.omdbmovierating.activities.ActivityDetail
+import com.deligence.omdbmovierating.utility.SpacesItemDecoration
 import com.deligence.omdbmovierating.dataobjects.DataMovie
 import com.deligence.omdbmovierating.enums.EnumTypes
 import com.deligence.omdbmovierating.models.ModelHome
-import com.deligence.omdbmovierating.utility.AlertUtil
 import com.deligence.omdbmovierating.utility.ToastUtils
 import com.deligence.omdbmovierating.viewmodels.VMActivityHome
-import kotlinx.android.synthetic.main.frag_list_movie.*
 
-class FragmentListItem : Fragment(){
+class FragmentListItem : Fragment(), View.OnClickListener{
 
     companion object {
         val TAG = "FragmentListItem"
@@ -51,6 +52,7 @@ class FragmentListItem : Fragment(){
     var progress: ProgressBar? = null
     var textView: TextView? = null
     var recylerView: RecyclerView? = null
+    private var adapter: AdapterMovies? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +82,17 @@ class FragmentListItem : Fragment(){
         return view
     }
 
+    override fun onClick(view: View?) {
 
+        if(adapter!=null && view != null){
+
+            val intent = Intent(activity, ActivityDetail::class.java)
+            intent.putExtra(ActivityDetail.EXTRA_DATAMOVIE, adapter!!.getItem(Integer.parseInt(view.tag.toString())))
+            startActivity(intent)
+
+        }
+
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -130,7 +142,7 @@ class FragmentListItem : Fragment(){
         Log.d("WASTE"," In Fragment : "+ listMovie?.size)
 
         if(listMovie != null){
-            val adapter = AdapterMovies(activity!!, listMovie!!)
+            adapter = AdapterMovies(activity!!, listMovie!!, this)
             recylerView?.adapter = adapter
 
         }
@@ -138,18 +150,24 @@ class FragmentListItem : Fragment(){
 
     }
 
-    private class AdapterMovies(private var context: Context, private var list: List<DataMovie>): RecyclerView.Adapter<AdapterMovies.ViewHolderMovie>() {
+    private class AdapterMovies(private var context: Context, private var list: List<DataMovie>,
+                                private var onClickListener: View.OnClickListener): RecyclerView.Adapter<AdapterMovies.ViewHolderMovie>() {
 
         private class ViewHolderMovie: RecyclerView.ViewHolder{
 
             val imgePoster: ImageView
             val textTitle: TextView
             val textYear: TextView
-            constructor(itemView: View?): super(itemView!!){
+            val item: View
 
+            constructor(itemView: View?, onClickListener: View.OnClickListener): super(itemView!!){
+
+                item = itemView
                 imgePoster = itemView?.findViewById(R.id.imgPoster)
                 textTitle = itemView?.findViewById(R.id.textTitle)
                 textYear = itemView?.findViewById(R.id.textYear)
+
+                item.setOnClickListener(onClickListener)
 
             }
         }
@@ -157,18 +175,32 @@ class FragmentListItem : Fragment(){
         override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ViewHolderMovie {
 
 
-            return ViewHolderMovie(LayoutInflater.from(context).inflate(R.layout.view_movie_item,viewGroup, false))
+            return ViewHolderMovie(LayoutInflater.from(context).inflate(R.layout.view_movie_item,viewGroup, false),
+                    onClickListener)
         }
 
         override fun getItemCount(): Int {
             return list.size
         }
 
+        fun getItem(position: Int): DataMovie?{
+            Log.d("WASTE","ItemClicked:: "+position)
+            if(position >= 0 && position < list.size){
+                return list.get(position)
+            }
+            return null
+        }
         override fun onBindViewHolder(viewHolder: ViewHolderMovie, position: Int) {
 
             val dataMovie = list.get(position)
             viewHolder.textTitle.text = dataMovie.name
             viewHolder.textYear.text = dataMovie.year.toString()
+            viewHolder.item.tag = position
+
+            Glide.with(context)
+                    .load(dataMovie.posterUrl)
+                    .apply(RequestOptions().override(150,200))
+                    .into(viewHolder.imgePoster)
         }
 
 

@@ -1,4 +1,4 @@
-package com.deligence.omdbmovierating
+package com.deligence.omdbmovierating.utility
 
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView

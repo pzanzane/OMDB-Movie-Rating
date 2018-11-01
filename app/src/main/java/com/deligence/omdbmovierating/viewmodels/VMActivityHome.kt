@@ -3,9 +3,7 @@ package com.deligence.omdbmovierating.viewmodels
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.util.Log
-import com.deligence.omdbmovierating.ApplicationOmdbMovieRating
-import com.deligence.omdbmovierating.dataobjects.DataMovie
+import com.deligence.omdbmovierating.application.ApplicationOmdbMovieRating
 import com.deligence.omdbmovierating.models.ModelHome
 import com.deligence.omdbmovierating.repository.RepositoryMovie
 import com.deligence.omdbmovierating.utility.NetworkHelper
