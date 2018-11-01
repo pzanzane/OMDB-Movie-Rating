@@ -1,3 +1,8 @@
 package com.deligence.omdbmovierating.dataobjects
 
-data class DataMovie(var imdbId: String="",var name: String="",var year: Int)
+import com.google.gson.annotations.SerializedName
+
+data class DataMovie(@SerializedName("imdbID") var imdbId: String="",
+                     @SerializedName("Title") var name: String="",
+                     @SerializedName("Year") var year: String,
+                     @SerializedName("Type") var type: String = "")

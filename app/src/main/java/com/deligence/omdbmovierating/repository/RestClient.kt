@@ -1,4 +1,4 @@
-package com.clevertrap.basicsetupkotlin.retrofit
+package com.deligence.omdbmovierating.retrofit
 
 import com.deligence.omdbmovierating.constants.ServerConstants
 

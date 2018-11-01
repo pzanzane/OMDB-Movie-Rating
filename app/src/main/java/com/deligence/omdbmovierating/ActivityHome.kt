@@ -1,5 +1,6 @@
 package com.deligence.omdbmovierating
 
+import android.app.Activity
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
@@ -7,8 +8,10 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
@@ -17,23 +20,24 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
 import com.deligence.omdbmovierating.enums.EnumTypes
 import com.deligence.omdbmovierating.fragments.FragmentListItem
 import com.deligence.omdbmovierating.models.ModelHome
-import com.deligence.omdbmovierating.utility.ToastUtils
 import com.deligence.omdbmovierating.viewmodels.VMActivityHome
 
 class ActivityHome : AppCompatActivity() {
 
-    lateinit var liveDatamodelHome: LiveData<ModelHome>
+    private lateinit var liveDatamodelHome: LiveData<ModelHome>
+    private  lateinit var handleDelayText:Handler
+    private lateinit var runDelay: DelayRunnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(findViewById(R.id.homeToolBar))
 
-
+        handleDelayText = Handler()
+        runDelay = DelayRunnable(this@ActivityHome,"")
         val homeViewModel = ViewModelProviders.of(this).get(VMActivityHome::class.java)
         liveDatamodelHome = homeViewModel!!.getMovies()
 
@@ -44,7 +48,6 @@ class ActivityHome : AppCompatActivity() {
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         tabLayout.setupWithViewPager(viewPager)
 
-        loadData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -55,21 +58,6 @@ class ActivityHome : AppCompatActivity() {
         searchView.setOnQueryTextListener(quertChangeListener)
 
         return true
-    }
-
-    fun loadData(){
-        liveDatamodelHome.observe(this, Observer<ModelHome>{
-            modelHome ->
-
-
-            if(!TextUtils.isEmpty(modelHome?.errorMessage)){
-                ToastUtils.showToast(modelHome?.errorMessage!!)
-            }else{
-
-                Log.d("WASTE"," In Activity Observer: "+ modelHome?.listDataMovies?.size)
-
-            }
-        })
     }
 
     fun setupViewPager(viewPager: ViewPager){
@@ -86,10 +74,24 @@ class ActivityHome : AppCompatActivity() {
         override fun onQueryTextSubmit(text: String?): Boolean {
 
             Log.d("WASTE", "Query Searched:"+ text)
+
+            if(text != null){
+                ViewModelProviders.of(this@ActivityHome).get(VMActivityHome::class.java).loadMovies(text)
+            }
+
             return true
         }
 
         override fun onQueryTextChange(text: String?): Boolean {
+
+
+            handleDelayText.removeCallbacks(runDelay)
+
+            if(!TextUtils.isEmpty(text)){
+                runDelay = DelayRunnable(this@ActivityHome,text!!)
+                handleDelayText.postDelayed(runDelay, 500)
+            }
+
             return true
         }
     }
@@ -123,6 +125,15 @@ class ActivityHome : AppCompatActivity() {
             mapPosition.put(pos, title)
 
             Log.d("WASTE","Fragments:: "+mapPosition.size)
+        }
+    }
+
+
+    private class DelayRunnable(var context: FragmentActivity, var text: String): Runnable{
+
+
+        override fun run() {
+            ViewModelProviders.of(context).get(VMActivityHome::class.java).loadMovies(text)
         }
     }
 }

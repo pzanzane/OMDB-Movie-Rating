@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Omdb Movie Rating</string>
+    <string name="no_network">No Internet Connection</string>
 </resources>

@@ -12,6 +12,12 @@ interface ClientMovie {
 
     @GET(ServerConstants.BASE_URL)
     fun getAllMovies(
+            @Query(ServerConstants.APIKEY) apiKey: String,
+            @Query(ServerConstants.SEARCH_KEY) search: String): Call<ResponseGetMovies>
+
+
+    @GET(ServerConstants.BASE_URL)
+    fun getAllMovies(
                     @Query(ServerConstants.APIKEY) apiKey: String,
                   @Query(ServerConstants.SEARCH_KEY) search: String,
                   @Query(ServerConstants.YEAR_KEY) year: Int): Call<ResponseGetMovies>

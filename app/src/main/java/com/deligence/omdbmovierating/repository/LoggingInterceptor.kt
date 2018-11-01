@@ -1,4 +1,4 @@
-package com.clevertrap.basicsetupkotlin.retrofit
+package com.deligence.omdbmovierating.retrofit
 
 import android.util.Log
 import java.io.IOException
