@@ -15,7 +15,7 @@
 
     <style  name="ToolbarTheme"
         parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">@color/colorActionbar</item>
     </style>
 
     <style name="TabTheme" parent="Widget.Design.TabLayout">

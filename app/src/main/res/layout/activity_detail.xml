@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -26,4 +27,173 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:indeterminate="true"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/appBarLayout"
+        android:fillViewport="true"
+        >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundcolor">
+
+        <ImageView
+            android:id="@+id/imgPoster"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="fitXY"
+            />
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgPoster"
+            android:textSize="26dp"
+            android:text="Dunkirk"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/white"
+            android:background="@color/backgroundcolor"/>
+
+        <TextView
+            android:id="@+id/textYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textName"
+            android:textSize="13dp"
+            android:text="2018"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/backgroundcolor"
+            android:textColor="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/textRated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgPoster"
+            android:textSize="13dp"
+            android:text="PG-13"
+            android:layout_alignTop="@id/textYear"
+            android:layout_toRightOf="@id/textYear"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginLeft="10dp"
+            android:background="@color/backgroundcolor"/>
+
+        <TextView
+            android:id="@+id/textRuntime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgPoster"
+            android:textSize="13dp"
+            android:text="2 Hr"
+            android:layout_alignTop="@id/textYear"
+            android:layout_toRightOf="@id/textRated"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginLeft="10dp"
+            android:background="@color/backgroundcolor"/>
+
+        <TextView
+            android:id="@+id/textGener"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgPoster"
+            android:textSize="13dp"
+            android:text="PG-13"
+            android:layout_alignTop="@id/textYear"
+            android:layout_toRightOf="@id/textRuntime"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginLeft="10dp"
+            android:background="@color/backgroundcolor"/>
+
+
+        <TextView
+            android:id="@+id/textDirector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textYear"
+            android:textSize="14dp"
+            android:text="Director"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/white"
+            android:background="@color/backgroundcolor"/>
+
+        <TextView
+            android:id="@+id/textDirectorValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textDirector"
+            android:textSize="13dp"
+            android:text="PG-13"
+            android:textColor="@android:color/darker_gray"
+            android:layout_alignLeft="@id/textDirector"
+            android:background="@color/backgroundcolor"/>
+
+        <TextView
+            android:id="@+id/textWriter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textDirectorValue"
+            android:textSize="14dp"
+            android:text="Writer"
+            android:layout_alignLeft="@id/textDirectorValue"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/white"
+            android:background="@color/backgroundcolor"/>
+
+        <TextView
+            android:id="@+id/textWriterValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textWriter"
+            android:textSize="13dp"
+            android:text="PG-13"
+            android:textColor="@android:color/darker_gray"
+            android:layout_alignLeft="@id/textDirector"
+            android:background="@color/backgroundcolor"/>
+
+
+        <TextView
+            android:id="@+id/textPlot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textWriterValue"
+            android:textSize="14dp"
+            android:text="Plot Summary"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/backgroundcolor"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/textPlotData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textPlot"
+            android:textSize="13dp"
+            android:text="PG-13"
+            android:background="@color/backgroundcolor"
+            android:textColor="@android:color/darker_gray"
+            android:layout_alignLeft="@id/textPlot"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textPlotData"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:text="Rating should be here"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>
 </RelativeLayout>
