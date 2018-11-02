@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.deligence.omdbmovierating.dataobjects.DataMovie
 import com.deligence.omdbmovierating.R
 import com.deligence.omdbmovierating.dataobjects.DataMovieDetail
+import com.deligence.omdbmovierating.fragments.DialogFragmentRate
 import com.deligence.omdbmovierating.models.ModelMovieDetail
 import com.deligence.omdbmovierating.viewmodels.VMActivityDetail
 
@@ -107,6 +108,8 @@ class ActivityDetail: AppCompatActivity(), View.OnClickListener {
         when(view?.id){
             R.id.relativeRateThis -> {
 
+                val dialog = DialogFragmentRate()
+                dialog.show(supportFragmentManager,"")
             }
         }
     }
