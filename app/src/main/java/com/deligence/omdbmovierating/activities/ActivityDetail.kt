@@ -7,7 +7,10 @@ import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.deligence.omdbmovierating.dataobjects.DataMovie
@@ -16,7 +19,7 @@ import com.deligence.omdbmovierating.dataobjects.DataMovieDetail
 import com.deligence.omdbmovierating.models.ModelMovieDetail
 import com.deligence.omdbmovierating.viewmodels.VMActivityDetail
 
-class ActivityDetail: AppCompatActivity() {
+class ActivityDetail: AppCompatActivity(), View.OnClickListener {
 
     companion object {
         const val EXTRA_DATAMOVIE= "EXTRA_DATAMOVIE"
@@ -33,7 +36,10 @@ class ActivityDetail: AppCompatActivity() {
     lateinit var textWriterValue: TextView
     lateinit var textDirectorValue: TextView
     lateinit var textPlotData: TextView
-
+    lateinit var txtImdbRating: TextView
+    lateinit var txtMetaScoreValue: TextView
+    lateinit var txtImdbVotes: TextView
+    lateinit var relativeRateThis: RelativeLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +58,15 @@ class ActivityDetail: AppCompatActivity() {
         textWriterValue = findViewById(R.id.textWriterValue)
         textDirectorValue = findViewById(R.id.textDirectorValue)
         textPlotData = findViewById(R.id.textPlotData)
+        txtImdbRating = (findViewById<LinearLayout>(R.id.linearRatingBar))
+                .findViewById<RelativeLayout>(R.id.relativeImdbRating).findViewById(R.id.txtImdbRating)
+        txtImdbVotes = (findViewById<LinearLayout>(R.id.linearRatingBar))
+                .findViewById<RelativeLayout>(R.id.relativeImdbRating).findViewById(R.id.txtImdbVotes)
+        txtMetaScoreValue = (findViewById<LinearLayout>(R.id.linearRatingBar))
+                .findViewById<RelativeLayout>(R.id.relativeMetascore).findViewById(R.id.txtMetaScoreValue)
+        relativeRateThis = (findViewById<LinearLayout>(R.id.linearRatingBar)).findViewById(R.id.relativeRateThis)
+        relativeRateThis.setOnClickListener(this)
+
 
 
         var vmDetail = ViewModelProviders.of(this).get(VMActivityDetail::class.java)
@@ -71,6 +86,9 @@ class ActivityDetail: AppCompatActivity() {
             textWriterValue.text =dataDetail?.writer
             textDirectorValue.text =dataDetail?.director
             textPlotData.text = dataDetail?.plot
+            txtImdbRating.text = dataDetail?.imdbRating
+            txtMetaScoreValue.text = dataDetail?.metascore
+            txtImdbVotes.text = dataDetail?.imdbVotes
 
         })
     }
@@ -84,4 +102,12 @@ class ActivityDetail: AppCompatActivity() {
         return true
     }
 
+    override fun onClick(view: View?) {
+
+        when(view?.id){
+            R.id.relativeRateThis -> {
+
+            }
+        }
+    }
 }
